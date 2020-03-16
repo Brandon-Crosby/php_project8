@@ -24,9 +24,8 @@ case "add":
     break;
 case "update":
     $data = ['task_id'=>$task_id, 'task'=>$task, 'status'=>$status];
-    if (!isOwner($id_user)) 
-    {
-        $session->getFlashBag()->add('error', 'Not Authorized');
+    if (!isOwner($id_user))
+    {  $session->getFlashBag()->add('error', 'Not Authorized');
         redirect('/task_list.php');
     } elseif (updateTask($data)) {
         $session->getFlashBag()->add('success', 'Task Updated');

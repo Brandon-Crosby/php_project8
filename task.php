@@ -5,6 +5,10 @@ $pageTitle = "Task | Time Tracker";
 $page = "task";
 
 
+if (request()->get('id')) {
+    list($task_id, $task, $status, $user_id) = getTask(request()->get('id'));
+}
+
 include 'inc/header.php';
 ?>
 
@@ -27,7 +31,7 @@ include 'inc/header.php';
                 <table>
                     <tr>
                         <th><label for="task">Task<span class="required">*</span></label></th>
-                        <td><input type="text" id="task" name="task" value="<?php echo htmlspecialchars($task); ?>" /></td>
+                        <td><input type="text" id="task" name="task" value="<?php if (isset($task)) { echo htmlspecialchars($task); } ?>" /></td>
                     </tr>
                    </table>
                 <?php
@@ -35,6 +39,7 @@ include 'inc/header.php';
                     echo "<input type='hidden' name='action' value='update' />";
                     echo "<input type='hidden' name='task_id' value='$task_id' />";
                     echo "<input type='hidden' name='status' value='$status' />";
+                    echo "<input type='hidden' name='user_id' value='$user_id' />";
                 } else {
                     echo "<input type='hidden' name='status' value='0' />";
                     echo "<input type='hidden' name='action' value='add' />";
